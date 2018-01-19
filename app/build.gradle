@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "com.example.user.marketci"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [onesignal_app_id: "3e0e8f7c-360d-4966-81a8-f225735cf025",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
+        multiDexEnabled true //important
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    testCompile ('com.squareup:fest-android:1.0.8') { //bunu kaldır düzelmezse
+        exclude module: 'support-v4'
+    }
+
+    compile 'com.jakewharton:butterknife:8.7.0' //added butterknife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0' //added butterknife
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    compile 'com.google.android.gms:play-services:10.2.0' //bu sorun yaşatıyor
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-auth:10.2.1'
+    compile 'com.google.firebase:firebase-database:10.2.1'
+    compile 'com.firebase:firebase-client-android:2.5.2'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile 'com.onesignal:OneSignal:3.4.3@aar'
+    // Required for OneSignal, even if you have added FCM.
+    compile 'com.google.android.gms:play-services-gcm:10.2.1'
+    // Required for geotagging
+    compile 'com.google.android.gms:play-services-location:10.2.0'
+    // play-services-analytics is only needed when using 8.1.0 or older.
+    // compile 'com.google.android.gms:play-services-analytics:+'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.android.support:multidex:1.0.1'
+    compile group: 'com.github.bumptech.glide', name: 'glide', version: '3.7.0'
+
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
+
+
+    //Shop Part
+    //firebase storage
+    compile 'com.google.firebase:firebase-storage:10.2.0'
+    compile 'com.acker:simplezxing:1.5'
+    compile 'org.jsoup:jsoup:1.7.3'
+    //picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+}
